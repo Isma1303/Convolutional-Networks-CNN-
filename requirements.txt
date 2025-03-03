@@ -3,3 +3,5 @@ numpy
 matplotlib
 opencv-python
 Pillow
+seaborn
+sklearn
