@@ -6,57 +6,6 @@ This project aims to develop a Convolutional Neural Network (CNN) model for clas
 
 Este proyecto tiene como objetivo desarrollar un modelo de Red Neuronal Convolucional (CNN) para clasificar imágenes de satélite en diferentes categorías.
 
----
-
-## Project Structure (Estructura del Proyecto)
-
-SATELITE/
-├── data/
-│   ├── train/
-│   │   ├── clase1/
-│   │   │   ├── image1.jpg
-│   │   │   └── ...
-│   │   ├── clase2/
-│   │   │   ├── image2.jpg
-│   │   │   └── ...
-│   │   └── ...
-│   ├── validation/
-│   │   ├── clase1/
-│   │   │   ├── sunflower.jpg
-│   │   │   └── ...
-│   │   ├── clase2/
-│   │   │   ├── tree.jpeg
-│   │   │   └── ...
-│   │   └── ...
-│   └── test/  # Optional Test Dataset (Conjunto de Datos de Prueba Opcional)
-│       ├── clase1/
-│       │   └── ...
-│       ├── clase2/
-│       │   └── ...
-│       └── ...
-├── models/
-│   ├── cnn_model1.py
-│   └── ...
-├── notebooks/
-│   ├── dataExploration.ipynb
-│   ├── modelTraining.ipynb
-│   ├── modelEvaluation.ipynb
-│   └── ...
-├── results/
-│   ├── metrics/
-│   │   └── ...
-│   ├── plots/
-│   │   └── ...
-│   ├── predictions/
-│   │   └── ...
-│   └── ...
-├── scripts/
-│   ├── preprocessing.py
-│   ├── training.py
-│   ├── assessment.py
-│   └── ...
-├── README.md
-└── requirements.txt
 
 * `data/`: Contains the training, validation, and test datasets. (Contiene los conjuntos de datos de entrenamiento, validación y prueba.)
 * `models/`: Stores the CNN model definitions. (Almacena las definiciones de los modelos CNN.)
