@@ -1,3 +1,4 @@
+# filepath: /Users/alejandro/Desktop/Convolutional-Networks-CNN-/models/cnn_model1.py
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 
@@ -22,11 +23,9 @@ def crear_modelo_cnn(tamano_imagen, num_clases):
         MaxPooling2D((2, 2)),
         Flatten(),
         Dense(128, activation='relu'),
-        Dense(num_clases, activation='softmax') # Función de activación softmax para clasificación multiclase
+        Dense(num_clases, activation='softmax')
     ])
-
     modelo.compile(optimizer='adam',
-                  loss='categorical_crossentropy', # Función de pérdida para clasificación multiclase
+                  loss='categorical_crossentropy',
                   metrics=['accuracy'])
-
     return modelo

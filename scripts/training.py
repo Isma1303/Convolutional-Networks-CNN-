@@ -1,7 +1,7 @@
 import os
 import tensorflow as tf
-from scripts.preprocesamiento_datos import cargar_y_preprocesar_datos
-from models.cnn_modelo1 import crear_modelo_cnn
+from scripts.preprocessing import cargar_y_preprocesar_datos
+from models.cnn_model1 import crear_modelo_cnn
 
 def entrenar_modelo(ruta_datos_entrenamiento, ruta_datos_validacion, tamano_lote, tamano_imagen, num_epocas):
     """

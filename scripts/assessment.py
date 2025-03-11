@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
+print(tf.__version__)
+
 def cargar_y_preprocesar_datos(ruta_datos, tamano_lote, tamano_imagen):
     """Carga y preprocesa imágenes usando ImageDataGenerator."""
     generador_imagenes = ImageDataGenerator(rescale=1./255)
