@@ -1,7 +1,4 @@
-tensorflow
-numpy
-matplotlib
+torch
 opencv-python
-Pillow
-seaborn
-sklearn
+numpy
+pyserial
