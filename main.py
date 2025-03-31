@@ -1,75 +1,65 @@
 import cv2
 import torch
+import clip
+from PIL import Image
 import numpy as np
-from cnn_model import CNNModel
-import time
 
-# Cargar modelo entrenado
-model = CNNModel()
-model.load_state_dict(torch.load("model.pth"))
-model.eval()
+# Cargar modelo CLIP preentrenado
+device = "cuda" if torch.cuda.is_available() else "cpu"
+try:
+    model, preprocess = clip.load("ViT-B/32", device=device)
+except Exception as e:
+    raise Exception(f"❌ Error al cargar el modelo CLIP: {e}")
 
-# Verificar si hay GPU disponible
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
+# Definir etiquetas
+labels = ["gato", "perro", "pájaro", "celular", "computadora", "vaso"]
+try:
+    text_inputs = clip.tokenize(labels).to(device)
+except Exception as e:
+    raise Exception(f"❌ Error al tokenizar las etiquetas: {e}")
 
 # Inicializar cámara
 cap = cv2.VideoCapture(0)
+if not cap.isOpened():
+    raise Exception("❌ No se pudo abrir la cámara")
+print("✅ Cámara detectada. Presiona 'q' para salir.")
 
-try:
-    if not cap.isOpened():
-        raise Exception("❌ No se pudo abrir la cámara")
-    else:
-        print("✅ Cámara detectada. Presiona 'q' para salir.")
-except Exception as e:
-    print(e)
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        print("❌ Error al leer el frame de la cámara.")
+        break
+    
+    # Convertir la imagen para CLIP
+    try:
+        img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        img_pil = Image.fromarray(img)
+        img_preprocessed = preprocess(img_pil).unsqueeze(0).to(device)
+    except Exception as e:
+        print(f"❌ Error al procesar la imagen: {e}")
+        continue
+    
+    # Realizar predicción
+    try:
+        with torch.no_grad():
+            image_features = model.encode_image(img_preprocessed)
+            text_features = model.encode_text(text_inputs)
+            similarity = (image_features @ text_features.T).softmax(dim=-1)
+            predicted_label = labels[similarity.argmax().item()]
+    except Exception as e:
+        print(f"❌ Error al realizar la predicción: {e}")
+        continue
+    
+    # Mostrar resultado en consola
+    print(f"🔍 Predicción: {predicted_label}")
+    
+    # Mostrar resultado en la ventana
+    cv2.putText(frame, f"Predicción: {predicted_label}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    cv2.imshow("Reconocimiento con CLIP", frame)
+    
+    # Salir con 'q'
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-# Sistema de etiquetas (ejemplo)
-labels = {0: "Gato", 1: "Perro", 2: "Pájaro"}
-
-# Límite de FPS
-fps_limit = 30
-start_time = time.time()
-
-try:
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            break
-
-        # Controlar FPS
-        if (time.time() - start_time) < (1 / fps_limit):
-            continue
-        start_time = time.time()
-
-        # Preprocesamiento de la imagen
-        img = cv2.resize(frame, (64, 64))
-        img = img / 255.0  # Normalizar valores entre 0 y 1
-        img = np.transpose(img, (2, 0, 1))
-        img = torch.tensor(img, dtype=torch.float32).unsqueeze(0).to(device)
-
-        # Predicción con manejo de errores
-        try:
-            output = model(img)
-            prediction = torch.argmax(output, dim=1).item()
-            prediction_label = labels.get(prediction, "Desconocido")
-        except Exception as e:
-            print(f"Error durante la predicción: {e}")
-            prediction_label = "Error"
-
-        print(f"Predicción: {prediction_label}")
-
-        # Mostrar la predicción en la ventana
-        cv2.rectangle(frame, (5, 5), (300, 40), (0, 0, 0), -1)  # Fondo negro
-        cv2.putText(frame, f"Predicción: {prediction_label}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        cv2.imshow("Frame", frame)
-
-        # Salir si se presiona 'q'
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-except Exception as e:
-    print(f"Error inesperado: {e}")
-finally:
-    # Liberar recursos
-    cap.release()
-    cv2.destroyAllWindows()
+cap.release()
+cv2.destroyAllWindows()
