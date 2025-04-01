@@ -9,7 +9,7 @@ save_path = f"data/{category}"
 os.makedirs(save_path, exist_ok=True)
 
 # Abrir la cámara
-cap = cv2.VideoCapture(0, cv2.CAP_AVFOUNDATION)
+cap = cv2.VideoCapture(0)  # Usa el backend predeterminado
 
 if not cap.isOpened():
     print("❌ No se pudo abrir la cámara.")
@@ -20,26 +20,21 @@ else:
     while True:
         ret, frame = cap.read()
         if not ret:
+            print("❌ No se pudo leer el frame de la cámara.")
             break
 
         # Mostrar el video en vivo
         cv2.imshow("Captura de imágenes", frame)
 
-        # Guardar imagen cuando se presiona 's'
+        # Detectar teclas presionadas
         key = cv2.waitKey(1) & 0xFF
+
+        # Guardar imagen cuando se presiona 's'
         if key == ord('s'):
-            try:
-                # Preguntar al usuario si desea capturar la imagen
-                confirm = input("¿Deseas capturar esta imagen? (sí/no): ").strip().lower()
-                if confirm in ['sí', 'si', 's']:
-                    image_path = f"{save_path}/{count}.jpg"
-                    cv2.imwrite(image_path, frame)
-                    print(f"✅ Imagen guardada: {image_path}")
-                    count += 1
-                else:
-                    print("❌ Imagen descartada.")
-            except Exception as e:
-                print(f"Error al capturar la imagen: {e}")
+            image_path = f"{save_path}/{count}.jpg"
+            cv2.imwrite(image_path, frame)
+            print(f"✅ Imagen guardada: {image_path}")
+            count += 1
 
         # Salir con la tecla 'q'
         elif key == ord('q'):

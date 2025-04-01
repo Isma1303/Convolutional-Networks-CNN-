@@ -1,0 +1,10 @@
+torch
+opencv-python
+numpy
+pyserial
+mysql-connector-python
+torchvision
+
+
+#IA CLIP 
+#pip install git+https://github.com/openai/CLIP.git
