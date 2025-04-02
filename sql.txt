@@ -1,0 +1,153 @@
+create database cnn;
+use cnn;
+create table texts (
+id int auto_increment primary key not null,
+text_data varchar(50) not null,
+created_at timestamp not null,
+category varchar(50) not null
+);
+
+create table predictions(
+id int auto_increment primary key not null,
+predicted_label varchar (50) not null,
+created_at timestamp not null
+);
+
+insertar datos 
+INSERT INTO text_data (text_data, created_at, category) VALUES
+-- Animales
+('gato', '31-03-2025', 'animals'),
+('perro', '31-03-2025', 'animals'),
+('leon', '31-03-2025', 'animals'),
+('tigre', '31-03-2025', 'animals'),
+('elefante', '31-03-2025', 'animals'),
+('jirafa', '31-03-2025', 'animals'),
+('mono', '31-03-2025', 'animals'),
+('cebra', '31-03-2025', 'animals'),
+('oso', '31-03-2025', 'animals'),
+('pajaro', '31-03-2025', 'animals'),
+('ballena', '31-03-2025', 'animals'),
+('delfin', '31-03-2025', 'animals'),
+('tiburon', '31-03-2025', 'animals'),
+('serpiente', '31-03-2025', 'animals'),
+('lagarto', '31-03-2025', 'animals'),
+
+-- Tecnologia
+('smartphone', '31-03-2025', 'technology'),
+('computadora', '31-03-2025', 'technology'),
+('laptop', '31-03-2025', 'technology'),
+('tablet', '31-03-2025', 'technology'),
+('teclado', '31-03-2025', 'technology'),
+('mouse', '31-03-2025', 'technology'),
+('monitor', '31-03-2025', 'technology'),
+('router', '31-03-2025', 'technology'),
+('impresora', '31-03-2025', 'technology'),
+('drone', '31-03-2025', 'technology'),
+
+-- Anatomia animal
+('pata', '31-03-2025', 'animal_anatomy'),
+('cola', '31-03-2025', 'animal_anatomy'),
+('alas', '31-03-2025', 'animal_anatomy'),
+('garras', '31-03-2025', 'animal_anatomy'),
+('pelaje', '31-03-2025', 'animal_anatomy'),
+('plumas', '31-03-2025', 'animal_anatomy'),
+('pico', '31-03-2025', 'animal_anatomy'),
+('antenas', '31-03-2025', 'animal_anatomy'),
+('escamas', '31-03-2025', 'animal_anatomy'),
+('cuernos', '31-03-2025', 'animal_anatomy'),
+
+-- Anatomia humana
+('cabeza', '31-03-2025', 'human_anatomy'),
+('brazo', '31-03-2025', 'human_anatomy'),
+('pierna', '31-03-2025', 'human_anatomy'),
+('mano', '31-03-2025', 'human_anatomy'),
+('pie', '31-03-2025', 'human_anatomy'),
+('ojo', '31-03-2025', 'human_anatomy'),
+('nariz', '31-03-2025', 'human_anatomy'),
+('boca', '31-03-2025', 'human_anatomy'),
+('oreja', '31-03-2025', 'human_anatomy'),
+('cabello', '31-03-2025', 'human_anatomy'),
+
+-- Astronomia
+('sol', '31-03-2025', 'astronomy'),
+('luna', '31-03-2025', 'astronomy'),
+('estrella', '31-03-2025', 'astronomy'),
+('planeta', '31-03-2025', 'astronomy'),
+('galaxia', '31-03-2025', 'astronomy'),
+('cometa', '31-03-2025', 'astronomy'),
+('asteroide', '31-03-2025', 'astronomy'),
+('telescopio', '31-03-2025', 'astronomy'),
+('satelite', '31-03-2025', 'astronomy'),
+('nebulosa', '31-03-2025', 'astronomy'),
+
+-- Aeronautica
+('avion', '31-03-2025', 'aeronautics'),
+('helicoptero', '31-03-2025', 'aeronautics'),
+('cohete', '31-03-2025', 'aeronautics'),
+('ala', '31-03-2025', 'aeronautics'),
+('turbina', '31-03-2025', 'aeronautics'),
+('cabina', '31-03-2025', 'aeronautics'),
+('paracaidas', '31-03-2025', 'aeronautics'),
+('aeropuerto', '31-03-2025', 'aeronautics'),
+('pista', '31-03-2025', 'aeronautics'),
+('torre', '31-03-2025', 'aeronautics'),
+
+-- Geografia
+('montana', '31-03-2025', 'geography'),
+('rio', '31-03-2025', 'geography'),
+('lago', '31-03-2025', 'geography'),
+('oceano', '31-03-2025', 'geography'),
+('desierto', '31-03-2025', 'geography'),
+('bosque', '31-03-2025', 'geography'),
+('playa', '31-03-2025', 'geography'),
+('volcan', '31-03-2025', 'geography'),
+('isla', '31-03-2025', 'geography'),
+('ciudad', '31-03-2025', 'geography'),
+
+-- Deportes
+('futbol', '31-03-2025', 'sports'),
+('baloncesto', '31-03-2025', 'sports'),
+('tenis', '31-03-2025', 'sports'),
+('natacion', '31-03-2025', 'sports'),
+('ciclismo', '31-03-2025', 'sports'),
+('beisbol', '31-03-2025', 'sports'),
+('golf', '31-03-2025', 'sports'),
+('boxeo', '31-03-2025', 'sports'),
+('atletismo', '31-03-2025', 'sports'),
+('gimnasia', '31-03-2025', 'sports'),
+
+-- Famosos
+('actor', '31-03-2025', 'celebrities'),
+('cantante', '31-03-2025', 'celebrities'),
+('deportista', '31-03-2025', 'celebrities'),
+('politico', '31-03-2025', 'celebrities'),
+('cientifico', '31-03-2025', 'celebrities'),
+('artista', '31-03-2025', 'celebrities'),
+('escritor', '31-03-2025', 'celebrities'),
+('director', '31-03-2025', 'celebrities'),
+('modelo', '31-03-2025', 'celebrities'),
+('influencer', '31-03-2025', 'celebrities'),
+
+-- Autos
+('sedan', '31-03-2025', 'cars'),
+('camioneta', '31-03-2025', 'cars'),
+('deportivo', '31-03-2025', 'cars'),
+('motor', '31-03-2025', 'cars'),
+('llanta', '31-03-2025', 'cars'),
+('volante', '31-03-2025', 'cars'),
+('asiento', '31-03-2025', 'cars'),
+('puerta', '31-03-2025', 'cars'),
+('capo', '31-03-2025', 'cars'),
+('maletero', '31-03-2025', 'cars'),
+
+-- Electronica
+('resistencia', '31-03-2025', 'electronics'),
+('capacitor', '31-03-2025', 'electronics'),
+('diodo', '31-03-2025', 'electronics'),
+('transistor', '31-03-2025', 'electronics'),
+('circuito', '31-03-2025', 'electronics'),
+('placa', '31-03-2025', 'electronics'),
+('bateria', '31-03-2025', 'electronics'),
+('sensor', '31-03-2025', 'electronics'),
+('led', '31-03-2025', 'electronics'),
+('chip', '31-03-2025', 'electronics');
